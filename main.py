@@ -21,12 +21,12 @@ cart,total={},0
 print_categories(30)
 
 while True:
-    print("Lütfen kategori seçimi yapınız (1-6 | e): ", end="")
-    select_category= msvcrt.getch().decode("utf-8").strip().lower()
-    print()
-    
-    if select_category =="e":
+    print("Lütfen kategori seçimi yapınız (1-6 | e): ", end="", flush=True)
+    select_category = msvcrt.getch().decode("utf-8").strip().lower()
+    if select_category == "e":
+        print("\r\033[2K", end="")
         break
+    print()
 
     if select_category.isdigit() == False:
         print(f"{Fore.RED} Hatalı seçim yatpınız! Kategori seçimi için (1-6) arasında bir tuşa basmalısınız. {Style.RESET_ALL}")
