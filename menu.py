@@ -44,3 +44,34 @@ MENU = {
 }
 
 CATEGORIES = list(MENU.keys())
+
+def print_categories(inner_width):
+    print("╔" + "═" * inner_width + "╗")
+    print("║" + "📂 KATEGORİLER".ljust(inner_width - 1) + "║")
+    print("╠" + "═" * inner_width + "╣")
+
+    i = 0
+    while i < len(CATEGORIES):
+        satir = f"  {i + 1}) {CATEGORIES[i]}"
+        print("║" + satir.ljust(inner_width) + "║")
+        i += 1
+
+    print("╠" + "═" * inner_width + "╣")
+    print("║" + "👉 Seçim: 1-6".ljust(inner_width - 1) + "║")
+    print("║" + "🛑 Bitir: 'e'".ljust(inner_width - 1) + "║")
+    print("╚" + "═" * inner_width + "╝")
+
+def print_products(inner_width,cat_name,products):
+    print()
+    print("╔" + "═" * inner_width + "╗")
+    print("║" + f"📂 {cat_name}".ljust(inner_width - 1) + "║")
+    print("╠" + "═" * inner_width + "╣")
+
+    for i in range(0,len(products)):
+     product_name,product_price = products[i]
+     print(f"║ {i + 1}) {product_name} - {product_price} TL".ljust(inner_width + 1)+ "║")
+     
+    print("╠" + "═" * inner_width + "╣")
+    print("║" + "👉 Ürün seçimi: 1-5".ljust(inner_width - 1) + "║")
+    print("║" + "🛑 Geriye dön: 'q'".ljust(inner_width - 1) + "║")
+    print("╚" + "═" * inner_width + "╝")
