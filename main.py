@@ -17,10 +17,10 @@ if hasattr(sys.stderr, "reconfigure"):
 init(autoreset=True)
 print(welcome_text)
 
-cart,total, exit_order={},0,False 
+cart,total={},0 
 print_categories(30)
 
-while exit_order ==False:
+while True:
     print("Lütfen kategori seçimi yapınız (1-6 | e): ", end="")
     select_category= msvcrt.getch().decode("utf-8").strip().lower()
     print()
@@ -72,8 +72,5 @@ while exit_order ==False:
         print(f"Eklendi: {product_name}")
         print(Fore.CYAN + f"Güncel toplam: {total} TL" + Style.RESET_ALL)
         print()
-
-    if exit_order:
-        break
 
     
