@@ -15,6 +15,8 @@ if hasattr(sys.stderr, "reconfigure"):
 #endregion
 
 init(autoreset=True)
+UNDERLINE = "\033[4m"
+
 print(welcome_text)
 
 cart,total={},0 
@@ -69,8 +71,8 @@ while True:
             cart[product_name]={"adet":1,"fiyat":product_price,"kategori":cat_name}
 
         total += product_price
-        print(f"{product_name} ürünü eklendi.")
-        print(Fore.CYAN + f"Güncel toplam: {total} TL" + Style.RESET_ALL)
+        print(Back.GREEN + Fore.BLACK + Style.BRIGHT + f"{product_name} {Style.RESET_ALL} ürünü eklendi." + Style.RESET_ALL)
+        print(Back.CYAN + Fore.BLACK + Style.BRIGHT + f"Güncel toplam: {total} TL" + Style.RESET_ALL)
         print()
 
 print()
@@ -78,7 +80,8 @@ print()
 if total == 0:
     print("Sipariş vermeden çıkış yaptınız. Yine bekleriz!")
 else:
-    print("Siparişiniz: ")
+    cart_count = len(cart)
+    print( Style.BRIGHT + UNDERLINE  + f"🍴 {"Siparişleriniz" if cart_count > 1 else "Siparişiniz"} " + Style.RESET_ALL)
 
     for category in CATEGORIES:
         products_in_category = [
@@ -87,15 +90,18 @@ else:
         ]
 
         if products_in_category:
-            print(f"\n{category}")
+            print(f"\n  {Back.YELLOW + Fore.BLACK + Style.BRIGHT + category + Style.RESET_ALL}")
 
             for pname in products_in_category:
                 quantity = cart[pname]["adet"]
                 price = cart[pname]["fiyat"]
-                print(f"  - {pname} ({quantity} x {price} = {quantity * price} TL)")
-
+                if products_in_category.index(pname) % 2 == 0:
+                    print(Back.BLACK + Fore.WHITE + Style.BRIGHT + f"  - {pname} ({quantity} x {price} = {quantity * price} TL)" + Style.RESET_ALL)
+                else:
+                    print(Back.WHITE + Fore.BLACK + Style.BRIGHT + f"  - {pname} ({quantity} x {price} = {quantity * price} TL)" + Style.RESET_ALL)
+                
     print()
-    print(Fore.CYAN + f"Ödemeniz gereken toplam tutar: {total} TL" + Style.RESET_ALL)
+    print(Back.CYAN + Fore.BLACK + Style.BRIGHT + f"Ödemeniz gereken toplam tutar: {total} TL" + Style.RESET_ALL)
     print()
 
 
@@ -114,9 +120,10 @@ else:
             continue
         else:
            change = paid_amount - total
+           print()
            print(Fore.GREEN + f"Ödeme alındı: {paid_amount} TL" + Style.RESET_ALL)
            print(Fore.GREEN + f"Para üstü: {change} TL" + Style.RESET_ALL)
            print()
-           print(Back.GREEN + Style.BRIGHT + f"❤️ TEŞEKKÜRLER! YİNE BEKLERİZ!❤️" + Style.RESET_ALL)
+           print(Back.GREEN + Fore.BLACK + Style.BRIGHT + f"❤️ TEŞEKKÜRLER! YİNE BEKLERİZ!❤️" + Style.RESET_ALL)
            break
   
