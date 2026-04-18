@@ -1,7 +1,7 @@
 #region IMPORTS
 import sys
 import msvcrt
-from colorama import Fore,Style,init
+from colorama import Back,Fore,Style,init
 from welcome import welcome_text
 from tools import clear_console
 from menu import MENU,CATEGORIES,print_categories,print_products
@@ -22,7 +22,7 @@ print_categories(30)
 
 while True:
     print("Lütfen kategori seçimi yapınız (1-6 | e): ", end="", flush=True)
-    select_category = msvcrt.getch().decode("utf-8").strip().lower()
+    select_category = msvcrt.getwch().lower()
     if select_category == "e":
         print("\r\033[2K", end="")
         break
@@ -45,7 +45,7 @@ while True:
 
     while True:
         print("Lütfen ürün seçimi yapınız (1-5 | q): ", end="")
-        select_product= msvcrt.getch().decode("utf-8").strip().lower()
+        select_product = msvcrt.getwch().strip().lower()
 
         if select_product=="q":
           clear_console()
@@ -69,8 +69,54 @@ while True:
             cart[product_name]={"adet":1,"fiyat":product_price,"kategori":cat_name}
 
         total += product_price
-        print(f"Eklendi: {product_name}")
+        print(f"{product_name} ürünü eklendi.")
         print(Fore.CYAN + f"Güncel toplam: {total} TL" + Style.RESET_ALL)
         print()
 
-    
+print()
+
+if total == 0:
+    print("Sipariş vermeden çıkış yaptınız. Yine bekleriz!")
+else:
+    print("Siparişiniz: ")
+
+    for category in CATEGORIES:
+        products_in_category = [
+            pname for pname in cart
+            if cart[pname]["kategori"] == category
+        ]
+
+        if products_in_category:
+            print(f"\n{category}")
+
+            for pname in products_in_category:
+                quantity = cart[pname]["adet"]
+                price = cart[pname]["fiyat"]
+                print(f"  - {pname} ({quantity} x {price} = {quantity * price} TL)")
+
+    print()
+    print(Fore.CYAN + f"Ödemeniz gereken toplam tutar: {total} TL" + Style.RESET_ALL)
+    print()
+
+
+    while True:
+        payment = input("Lütfen ödeme yapmak istediğiniz tutarı giriniz: ").strip()
+
+        if payment.isdigit() == False:
+            print(f"{Fore.RED} Hatalı giriş yatpınız! Ödeme yapmak istediğiniz tutarı bir sayı olarak giriniz. {Style.RESET_ALL}")
+            continue
+        
+        paid_amount = int(payment)
+
+        if paid_amount < total:
+            print(Fore.RED +"Ödeme yapmak istediğiniz tutar toplam tutardan düşük olamaz."+ Style.RESET_ALL)
+            print(Style.BRIGHT + Fore.WHITE + Back.RED + f"Eksik bakiye: {total - paid_amount} TL" + Style.RESET_ALL)
+            continue
+        else:
+           change = paid_amount - total
+           print(Fore.GREEN + f"Ödeme alındı: {paid_amount} TL" + Style.RESET_ALL)
+           print(Fore.GREEN + f"Para üstü: {change} TL" + Style.RESET_ALL)
+           print()
+           print(Back.GREEN + Style.BRIGHT + f"❤️ TEŞEKKÜRLER! YİNE BEKLERİZ!❤️" + Style.RESET_ALL)
+           break
+  
