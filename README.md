@@ -37,7 +37,7 @@ python main.py
 ## Kullanım
 
 | Aşama | Tuş / Giriş | Açıklama |
-|--------|-------------|----------|
+| ----- | ----------- | -------- |
 | Kategori | `1`–`6` | İlgili menüyü açar |
 | Kategori | `e` | Siparişi bitirip özet ve ödemeye geçer |
 | Ürün | `1`–`5` | Seçilen ürünü sepete ekler (adet artar) |
@@ -46,14 +46,29 @@ python main.py
 
 UTF-8 çıktı için `main.py` içinde konsol kodlaması ayarlanmıştır; Türkçe karakterler düzgün görünmelidir.
 
+## Ekran görüntüleri
+
+![ASCII karşılama ekranı](./images/h1.png)
+
+![Kategori ve ürün seçimi](./images/h2.png)
+
+![Sipariş özeti ve ödeme (yetersiz tutar)](./images/h3.png)
+
+![Ödeme onayı ve para üstü](./images/h4.png)
+
 ## Proje yapısı
 
-```
+```text
 python restaurant/
 ├── main.py      # Ana döngü: kategori → ürün → özet → ödeme
 ├── menu.py      # MENU, CATEGORIES ve kutu çizim fonksiyonları
 ├── welcome.py   # Karşılama ASCII metni
 ├── tools.py     # Konsol temizleme (cls / clear)
+├── images/      # README için ekran görüntüleri
+│   ├── h1.png
+│   ├── h2.png
+│   ├── h3.png
+│   └── h4.png
 └── README.md
 ```
 
